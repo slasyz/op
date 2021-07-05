@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  app:
+    image: {{ long_name }}/app:latest
+    depends_on:
+      - db
+    # Remove this hostname and use per-network aliases after https://github.com/moby/moby/issues/38066 and
+    # https://github.com/moby/moby/issues/30313 are fixed.
+    hostname: {{ short_name }}_${ENV}_app
+    networks:
+      main:
+      infra:
+        aliases:
+          - {{ short_name }}_${ENV}_app
+
+  db:
+    image: {{ long_name }}/db:latest
+    volumes:
+      - type: volume
+        source: postgres_data
+        target: /var/lib/postgresql/data
+    networks:
+      - main
+
+networks:
+  main:
+  infra:
+    external: true
+    name: infra
+
+volumes:
+  postgres_data:

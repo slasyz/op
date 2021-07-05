@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  app:
+    volumes:
+      - type: bind
+        source: /etc/{{ short_name }}/config.json
+        target: /etc/{{ short_name }}/config.json
+        read_only: true
+    ports:
+      - 127.0.0.1:{{ ports.local.app }}:8000/tcp
+{% if 'app_second' in ports.local %}      - 127.0.0.1:{{ ports.local.app_second }}:8001/tcp{% endif %}
+  db:
+    volumes:
+      - type: bind
+        source: ../config.json
+        target: /etc/{{ short_name }}/config.json
+        read_only: true
+    ports:
+      - 127.0.0.1:{{ ports.local.db }}:5432/tcp
