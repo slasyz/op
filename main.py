@@ -50,6 +50,10 @@ def main():
         command.add_parser(subparsers)
 
     args = parser.parse_args()
+    if args.subcommand == 'help':
+        parser.print_help()
+        return
+
     for command in commands:
         if args.subcommand == command.get_name():
             command.do(args)

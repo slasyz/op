@@ -8,10 +8,10 @@ class Logs:
         self.config = config
 
     def get_name(self):
-        return 'help'
+        return 'logs'
 
     def add_parser(self, subparsers):
-        parser = subparsers.add_parser('help',
+        parser = subparsers.add_parser('logs',
                                        description='Attach to logs.',
                                        help='attach to logs')
 
