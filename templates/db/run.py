@@ -1,4 +1,5 @@
 # TODO: replace run.py with shell script using `jq` or `yq` for json or yaml parsing
+#  or with golang script and use it from scratch.
 
 {% if config == 'json' %}import json{% elif config == 'yaml' %}import yaml{% endif %}
 import os

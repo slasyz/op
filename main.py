@@ -4,11 +4,13 @@
 import argparse
 import os
 
+from op.commands.backup import Backup
 from op.commands.debug import Debug
 from op.commands.deploy import Deploy
 from op.commands.help import Help
 from op.commands.init import Init
 from op.commands.logs import Logs
+from op.commands.ports import Ports
 from op.commands.stat import Stat
 from op.commands.tests import Tests
 from op.commands.generate import Generate
@@ -37,10 +39,12 @@ def main():
         commands.extend([
             Generate(generator),
             Deploy(config, deployer),
-            Debug(),
-            Tests(config),
+            Debug(config),
+            Tests(config, deployer),
             Stat(config),
             Logs(config),
+            Ports(config, deployer),
+            Backup(config),
         ])
     except FileNotFoundError:
         print('file not found')

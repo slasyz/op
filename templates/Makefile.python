@@ -5,17 +5,13 @@
 
 export SHELL := /bin/bash
 export PYTHON_INTERPRETER := $(shell ( ls ./venv/Scripts/python.exe ./venv/bin/python 2> /dev/null || echo python ) | head -n 1)
-export BACKUP_FILENAME := ./backups/backup-$(shell date +'%Y%m%d-%H%M%S')
 
 .DEFAULT_GOAL := help
 
 
-include makefiles/Makefile.*
-
-
 .PHONY: help
 help:           ## show this help
-	@sed -nE '/@sed/!s/##\s?//p' Makefile makefiles/*
+	@sed -nE '/@sed/!s/##\s?//p' Makefile
 
 
 .PHONY: lint
@@ -30,7 +26,7 @@ lint.all: pylint
 
 .PHONY: pylint
 pylint:         ## run pylint (with disabled checks specified in $DISABLE variable)
-	$(PYTHON_INTERPRETER) -m pylint ./main.py ./toxicbot --rcfile="./pylintrc" --disable="$(DISABLE)"
+	$(PYTHON_INTERPRETER) -m pylint ./main.py ./{{ short_name }} --rcfile="./pylintrc" --disable="$(DISABLE)"
 
 
 .PHONY: test
@@ -38,7 +34,7 @@ test:           ## run unit tests
 	$(PYTHON_INTERPRETER) -m pytest tests/unit
 
 .PHONY: test.all
-test.all:       ## run all tests
+test.all:       ## run all tests, should run from container
 	$(PYTHON_INTERPRETER) -m pytest tests
 
 

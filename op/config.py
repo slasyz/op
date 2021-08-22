@@ -23,6 +23,7 @@ class Config:
 
     project_id: int
     environments: Sequence[str]
+    services: Sequence[str]
     ports: dict
 
     app_second: bool  # TODO: maybe replace with prometheus (or add prometheus handler to the main port)
@@ -50,8 +51,15 @@ def generate_ports(environments: Set[str], project_id: int, database: bool, app_
     return res
 
 
+def get_services(database: bool) -> Sequence[str]:
+    if database:
+        return 'app', 'db'
+
+    return 'db',
+
+
 def parse_config() -> Config:
-    with open(CONFIG_FILENAME) as f:
+    with open(CONFIG_FILENAME, encoding='utf-8') as f:
         res = toml.load(f)
 
     environments = res['environments']
@@ -61,6 +69,7 @@ def parse_config() -> Config:
         res['database'],
         res['app_second'],
     )
+    services = get_services(res['database'])
 
     return Config(
         res['short_name'],
@@ -69,6 +78,7 @@ def parse_config() -> Config:
         res['config'],
         res['project_id'],
         res['environments'],
+        services,
         ports,
         res['app_second'],
         res['database'],

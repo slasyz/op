@@ -15,8 +15,8 @@ class Init:
                               help='initialize project')
 
     def do(self, args: Namespace):
-        with open(os.path.join(self.templates_dir, 'op.toml')) as f:
+        with open(os.path.join(self.templates_dir, 'op.toml'), encoding='utf-8') as f:
             content = f.read()
 
-        with open('op.toml', 'x') as f:
+        with open('op.toml', 'x', encoding='utf-8') as f:
             f.write(content)

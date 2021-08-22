@@ -4,22 +4,37 @@
 #
 #    pip-compile
 #
+astroid==2.7.2
+    # via pylint
 click==8.0.1
     # via pip-tools
+isort==5.9.3
+    # via pylint
 jinja2==3.0.1
     # via -r requirements.in
+lazy-object-proxy==1.6.0
+    # via astroid
 markupsafe==2.0.1
     # via jinja2
+mccabe==0.6.1
+    # via pylint
 pep517==0.10.0
     # via pip-tools
 pip-tools==6.2.0
+    # via -r requirements.in
+platformdirs==2.2.0
+    # via pylint
+pylint==2.10.2
     # via -r requirements.in
 toml==0.10.2
     # via
     #   -r requirements.in
     #   pep517
+    #   pylint
 wheel==0.36.2
     # via pip-tools
+wrapt==1.12.1
+    # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

@@ -18,9 +18,9 @@ class Deploy:
                                               help='deploy project to the environment')
 
         parser_deploy.add_argument('--env', '-e',
-                                   type=str,
+                                   type=str, required=True,
                                    choices=self.config.environments)
 
     def do(self, args: Namespace):
-        self.deployer.assure()
+        self.deployer.assure(args.env)
         self.deployer.deploy(args.env)

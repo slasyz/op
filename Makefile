@@ -36,7 +36,7 @@ lint.all: pylint
 
 .PHONY: pylint
 pylint:       ## run pylint (with disabled checks specified in $DISABLE variable)
-	cd ..; ./ToxicTgBot/$(PYTHON_INTERPRETER) -m pylint ./ToxicTgBot --rcfile="./ToxicTgBot/pylintrc" --disable="$(DISABLE)"
+	cd ..; ./op/$(PYTHON_INTERPRETER) -m pylint ./op --rcfile="./op/pylintrc" --disable="$(DISABLE)"
 
 
 .PHONY: test
